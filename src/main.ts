@@ -4,7 +4,10 @@ import viteLogo from "/vite.svg";
 import { setupCounter } from "./counter.ts";
 
 import * as THREE from "three";
-console.log(THREE);
+import * as dat from "lil-gui";
+
+// デバッグ用GUIの設定
+const gui = new dat.GUI();
 
 // キャンバス取得
 const canvas = document.querySelector(".webgl") as HTMLCanvasElement | null;
@@ -43,11 +46,14 @@ renderer.setPixelRatio(window.devicePixelRatio);
 
 // オブジェクト作成
 const material = new THREE.MeshPhysicalMaterial({
-  color: "#ddd",
+  color: "#03d6bd",
   metalness: 0.86,
   roughness: 0.37,
   flatShading: true,
 });
+
+gui.addColor(material, "color").name("Color");
+gui.add(material, "metalness", 0, 1, 0.01).name("Metalness");
 
 const mesh1 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
 const mesh2 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
