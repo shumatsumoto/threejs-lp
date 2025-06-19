@@ -7,7 +7,10 @@ import * as THREE from "three";
 console.log(THREE);
 
 // キャンバス取得
-const canvas = document.querySelector(".webgl");
+const canvas = document.querySelector(".webgl") as HTMLCanvasElement | null;
+if (!canvas) {
+  throw new Error("Canvas element with class 'webgl' not found.");
+}
 
 // シーン
 const scene = new THREE.Scene();
@@ -57,6 +60,11 @@ mesh3.position.set(2, 0, -6);
 mesh4.position.set(5, 0, 3);
 
 scene.add(mesh1, mesh2, mesh3, mesh4);
+
+// ライトを追加
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 5, 5);
+scene.add(directionalLight);
 
 renderer.render(scene, camera);
 
