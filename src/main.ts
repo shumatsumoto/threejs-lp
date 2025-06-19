@@ -38,6 +38,26 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(window.devicePixelRatio);
 
+// オブジェクト作成
+const material = new THREE.MeshPhysicalMaterial({
+  color: "#ddd",
+  metalness: 0.86,
+  roughness: 0.37,
+  flatShading: true,
+});
+
+const mesh1 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
+const mesh2 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
+const mesh3 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
+const mesh4 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.4, 16, 60), material);
+
+mesh1.position.set(2, 0, 0);
+mesh2.position.set(-1, 0, 0);
+mesh3.position.set(2, 0, -6);
+mesh4.position.set(5, 0, 3);
+
+scene.add(mesh1, mesh2, mesh3, mesh4);
+
 renderer.render(scene, camera);
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
