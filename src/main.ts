@@ -91,7 +91,7 @@ let speed = 0;
 let rotation = 0;
 window.addEventListener("wheel", (event) => {
   speed += event.deltaY * 0.0002;
-  console.log(speed);
+  // console.log(speed);
 });
 
 function rot() {
@@ -112,6 +112,18 @@ function rot() {
 }
 rot();
 
+// カーソル位置を取得
+const cursor: { x: number; y: number } = {};
+cursor.x = 0;
+cursor.y = 0;
+console.log(cursor);
+
+window.addEventListener("mousemove", (event) => {
+  cursor.x = event.clientX / sizes.width - 0.5;
+  cursor.y = event.clientY / sizes.width - 0.5;
+  // console.log(cursor.x, cursor.y);
+});
+
 // アニメーションループ
 const clock = new THREE.Clock();
 
@@ -125,6 +137,10 @@ const animate = () => {
     mesh.rotation.x += 0.1 * getDeltaTime;
     mesh.rotation.y += 0.1 * getDeltaTime;
   }
+
+  // カメラの制御
+  camera.position.x += cursor.x * getDeltaTime * 2;
+  camera.position.y += -cursor.y * getDeltaTime * 2;
 
   requestAnimationFrame(animate);
 };
