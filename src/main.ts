@@ -67,6 +67,8 @@ mesh4.position.set(5, 0, 3);
 
 scene.add(mesh1, mesh2, mesh3, mesh4);
 
+const meshes = [mesh1, mesh2, mesh3, mesh4];
+
 // ライトを追加
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(5, 5, 5);
@@ -85,8 +87,20 @@ window.addEventListener("resize", () => {
 });
 
 // アニメーションループ
+
+const clock = new THREE.Clock();
+
 const animate = () => {
   renderer.render(scene, camera);
+
+  let getDeltaTime = clock.getDelta();
+
+  // meshを回転
+  for (const mesh of meshes) {
+    mesh.rotation.x += 0.1 * getDeltaTime;
+    mesh.rotation.y += 0.1 * getDeltaTime;
+  }
+
   requestAnimationFrame(animate);
 };
 
